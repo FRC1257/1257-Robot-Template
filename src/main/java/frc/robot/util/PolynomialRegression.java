@@ -31,7 +31,7 @@ public class PolynomialRegression implements Comparable<PolynomialRegression> {
 
   /**
    * Performs a polynomial reggression on the data points {@code (y[i], x[i])}. Uses n as the name
-   * of the predictor variable.
+   * of the predictor variable.p
    *
    * @param x the values of the predictor variable
    * @param y the corresponding values of the response variable

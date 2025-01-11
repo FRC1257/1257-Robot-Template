@@ -1,6 +1,8 @@
 package frc.robot.subsystems.drive;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,7 +25,7 @@ public class GyroIOReal {
     private final ADXRS450_Gyro gyro;
 
     private GyroIOReal() {
-        navx = new AHRS();
+        navx = new AHRS(NavXComType.kMXP_SPI);
         resetRoll = 0;
         resetPitch = 0;
         navx.reset();

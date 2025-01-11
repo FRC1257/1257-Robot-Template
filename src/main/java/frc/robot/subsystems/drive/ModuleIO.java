@@ -13,14 +13,17 @@
 
 package frc.robot.subsystems.drive;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import org.littletonrobotics.junction.AutoLog;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public interface ModuleIO {
   @AutoLog
   public static class ModuleIOInputs {
     public double drivePositionRad = 0.0;
+    public double drivePositionMeters = 0.0;
     public double driveVelocityRadPerSec = 0.0;
+    public double driveVelocityMeterPerSec = 0.0;
     public double driveAppliedVolts = 0.0;
     public double[] driveCurrentAmps = new double[] {};
 
@@ -30,6 +33,7 @@ public interface ModuleIO {
     public double turnAppliedVolts = 0.0;
     public double[] turnCurrentAmps = new double[] {};
 
+    public double[] odometryTimestamps = new double[] {};
     public double[] odometryDrivePositionsRad = new double[] {};
     public Rotation2d[] odometryTurnPositions = new Rotation2d[] {};
   }
@@ -48,4 +52,27 @@ public interface ModuleIO {
 
   /** Enable or disable brake mode on the turn motor. */
   public default void setTurnBrakeMode(boolean enable) {}
+
+  public default void setDrivePIDFF(double p, double i, double d, double ff) {}
+
+  public default void setTurnPIDFF(double p, double i, double d, double ff) {}
+
+  public default void setDriveVelocity(double velocityRadPerSec) {}
+
+  public default void setTurnPosition(double angle) {}
+
+  public default double getTurnPositionError(double angle) {
+    return 0.0;
+  }
+
+  public default double getAbsoluteEncoderOffset() {
+    return 0.0;
+  }
+
+  public default void setTurningCurrentLimit(int limit){
+  }
+
+  public default void setDriveCurrentLimit(int limit){
+
+  }
 }

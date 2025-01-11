@@ -1,20 +1,20 @@
 package frc.robot.util;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardNumber;
+import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 public class TunableNumber {
     private String key;
     private double defaultValue;
     private double value;
 
-    private LoggedDashboardNumber loggedDashboardNumber;
+    private LoggedNetworkNumber loggedDashboardNumber;
 
     public TunableNumber(String key, double defaultValue) {
         this.key = key;
         this.defaultValue = defaultValue;
         this.value = defaultValue;
 
-        loggedDashboardNumber = new LoggedDashboardNumber(key, defaultValue);
+        loggedDashboardNumber = new LoggedNetworkNumber("/SmartDashboard/" + key, defaultValue);
     }
 
     public TunableNumber(String key) {
@@ -26,7 +26,7 @@ public class TunableNumber {
         this.defaultValue = defaultValue;
         this.value = defaultValue;
 
-        loggedDashboardNumber = new LoggedDashboardNumber(this.key, defaultValue);
+        loggedDashboardNumber = new LoggedNetworkNumber("/SmartDashboard/" + this.key, defaultValue);
     }
 
     public double get() {

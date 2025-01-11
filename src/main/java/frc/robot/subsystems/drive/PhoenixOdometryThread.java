@@ -59,10 +59,11 @@ public class PhoenixOdometryThread extends Thread {
 
   public Queue<Double> registerSignal(ParentDevice device, StatusSignal<Angle> signal) {
     Queue<Double> queue = new ArrayBlockingQueue<>(100);
+    CANBus canBus = new CANBus(device.getNetwork());
     signalsLock.lock();
     Drive.odometryLock.lock();
     try {
-      isCANFD = CANBus.isNetworkFD(device.getNetwork());
+      isCANFD = canBus.isNetworkFD();
       BaseStatusSignal[] newSignals = new BaseStatusSignal[signals.length + 1];
       System.arraycopy(signals, 0, newSignals, 0, signals.length);
       newSignals[signals.length] = signal;

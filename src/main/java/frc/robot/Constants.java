@@ -12,7 +12,7 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.math.util.Units;
+import frc.robot.util.CommandSnailController;
 import edu.wpi.first.math.Matrix;
 
 /**
@@ -27,6 +27,8 @@ import edu.wpi.first.math.Matrix;
  */
 public final class Constants {
   public static final Mode currentMode = Mode.SIM;
+  public static final Drivers driver = Drivers.PROGRAMMERS;
+  public static final Operators operator = Operators.PROGRAMMERS;
 
   public static enum Mode {
     /** Running on a real robot. */
@@ -40,6 +42,14 @@ public final class Constants {
 
     /** Replaying from a log file. */
     REPLAY
+  }
+
+  public static enum Drivers {
+    PROGRAMMERS
+  }
+
+  public static enum Operators {
+    PROGRAMMERS
   }
 
   public static final class Drivebase {
@@ -133,6 +143,10 @@ public final class Constants {
     // (Fake values. Experiment and determine estimation noise on an actual robot.)
     public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(4, 4, 8);
     public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.5, 0.5, 1);
+  }
+
+  public static final class NeoMotorConstants {
+    public static final double kFreeSpeedRpm = 5676;
   }
 
   public static class ElectricalLayout {
