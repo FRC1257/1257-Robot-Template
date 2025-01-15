@@ -34,7 +34,7 @@ public class ModuleIOSim implements ModuleIO {
   private static final double LOOP_PERIOD_SECS = 0.02;
 
   private DCMotorSim driveSim = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getNEO(1), 0.025, 4.71), DCMotor.getNEO(1));
-  private DCMotorSim turnSim = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getNeo550(1), 0.004, 150.0 / 7.0), DCMotor.getNEO(1));
+  private DCMotorSim turnSim = new DCMotorSim(LinearSystemId.createDCMotorSystem(DCMotor.getNeo550(1), 0.004, 150.0 / 7.0), DCMotor.getNeo550(1));
 
   private final Rotation2d turnAbsoluteInitPosition = new Rotation2d(); // new Rotation2d(Math.random() * 2.0 * Math.PI);
   private double driveAppliedVolts = 0.0;

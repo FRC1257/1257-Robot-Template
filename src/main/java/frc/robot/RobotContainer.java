@@ -17,10 +17,13 @@ import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
+import frc.robot.subsystems.drive.GyroIOReal;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import frc.robot.util.CommandSnailController;
+import frc.robot.subsystems.vision.VisionIO;
+import frc.robot.subsystems.vision.VisionIOPhoton;
+import frc.robot.subsystems.vision.VisionIOSim;
 import static frc.robot.util.drive.DriveControls.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -54,11 +57,12 @@ public class RobotContainer {
       case REAL:
         drive =
           new Drive(
-            new GyroIOPigeon2(false),
+            new GyroIOReal(),
             new ModuleIOSparkMax(0),
             new ModuleIOSparkMax(1),
             new ModuleIOSparkMax(2),
-            new ModuleIOSparkMax(3));
+            new ModuleIOSparkMax(3),
+            new VisionIOPhoton());
         break;
 
       // Sim robot, instantiate physics sim IO implementations
@@ -69,7 +73,8 @@ public class RobotContainer {
             new ModuleIOSim(),
             new ModuleIOSim(),
             new ModuleIOSim(),
-            new ModuleIOSim());
+            new ModuleIOSim(),
+            new VisionIOSim());
         break;
         
       // Replayed robot, disable IO implementations
@@ -80,7 +85,8 @@ public class RobotContainer {
               new ModuleIO() {},
               new ModuleIO() {},
               new ModuleIO() {},
-              new ModuleIO() {});
+              new ModuleIO() {},
+              new VisionIO() {});
         break;
     }
 
@@ -105,6 +111,7 @@ public class RobotContainer {
             drive, drive::runCharacterizationVolts, drive::getCharacterizationVelocity));
 
     // Configure the button bindings
+    configureControls();
     configureButtonBindings();
   }
 

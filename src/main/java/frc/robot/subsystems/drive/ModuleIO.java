@@ -68,11 +68,4 @@ public interface ModuleIO {
   public default double getAbsoluteEncoderOffset() {
     return 0.0;
   }
-
-  public default void setTurningCurrentLimit(int limit){
-  }
-
-  public default void setDriveCurrentLimit(int limit){
-
-  }
 }

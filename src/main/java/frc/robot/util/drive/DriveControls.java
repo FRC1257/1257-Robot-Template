@@ -2,6 +2,7 @@ package frc.robot.util.drive;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -24,26 +25,41 @@ public class DriveControls {
     public static DoubleSupplier DRIVE_ROTATE;
     public static Trigger DRIVE_SLOW;
     public static Trigger DRIVE_STOP;
+    public static Trigger DRIVE_ROBOT_RELATIVE;
+
+    // Drive Turns
+    public static Trigger TURN_90;
+    public static Trigger TURN_180;
+
+    // Rumble Controls
+    public static Trigger TIMED_RUMBLE;
+    public static Trigger INTAKE_RUMBLE;
+
+    // Potential Hail Marry Program [Suggested by Owen]
+    public static Trigger SHOOT_FROM_SOURCE; 
 
     // Setup the controls
     public static void configureControls() {
         switch (Constants.driver) {
             case PROGRAMMERS:
             default:
-                // Driver controls
-                DRIVE_FORWARD = () -> (-driver.getLeftY());
-                DRIVE_STRAFE = ()->(-driver.getLeftX());
-                DRIVE_ROTATE = () -> (-driver.getRightX());
-                
-                // Driver Settings
-                DRIVE_SLOW = driver.start();
-                DRIVE_STOP = driver.x();
+                DRIVE_FORWARD = driver::getLeftY;
+                DRIVE_STRAFE = driver::getLeftX;
+                DRIVE_ROTATE = driver::getRightX;
+                DRIVE_SLOW = driver.x();
+                DRIVE_STOP = driver.rightBumper();
+                DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
+
+                TURN_90 = driver.y();
+                TURN_180 = driver.start();
+                break;
         }
 
         switch (Constants.operator) {
             case PROGRAMMERS:
             default:
                 // Operator controls
+                
                 break;
 
                 //bottom right Left joystick to intake 
@@ -56,13 +72,5 @@ public class DriveControls {
 
     public static Command getRumbleBoth() {
         return getRumbleCommand(driver).alongWith(getRumbleCommand(operator));
-    }
-
-    public static Command getRumbleOperator() {
-        return getRumbleCommand(operator);
-    }
-
-    public static Command getRumbleDriver() {
-        return getRumbleCommand(driver);
     }
 }

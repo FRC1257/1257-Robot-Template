@@ -18,7 +18,7 @@ import org.photonvision.simulation.SimCameraProperties;
 import org.photonvision.simulation.VisionSystemSim;
 import org.photonvision.targeting.PhotonPipelineResult;
 
-import static frc.robot.Constants.Vision.*;
+import static frc.robot.subsystems.vision.VisionConstants.*;
 
 public class VisionIOSim implements VisionIO {
     private final PhotonCamera camera;

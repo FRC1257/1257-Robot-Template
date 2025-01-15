@@ -56,10 +56,6 @@ public class CommandSnailController extends CommandXboxController {
         return b();
     }
 
-    public Trigger getLefJoystucikPress() {
-        return button(9);
-    }
-
     public enum DPad {
         UP,
         RIGHT,
@@ -99,7 +95,7 @@ public class CommandSnailController extends CommandXboxController {
     //these two commands work together to get input from the joystick to control the robot
     //since getLeftBumper is true for driveforward and driveturn, it'll make it so tha tthe
     //left y joystick controls the full movement
-
+    
     public static double applyDeadband(double value) {
         if (Math.abs(value) < 0.08) return 0;
         else return value;

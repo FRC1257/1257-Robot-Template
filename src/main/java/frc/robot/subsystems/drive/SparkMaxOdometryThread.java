@@ -22,6 +22,7 @@ import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.RobotController;
 
 /**
  * Provides an interface for asynchronously reading high-frequency measurements to a set of queues.
@@ -80,7 +81,7 @@ public class SparkMaxOdometryThread {
 
   private void periodic() {
     Drive.odometryLock.lock();
-    double timestamp = Logger.getRealTimestamp() / 1e6;
+    double timestamp = RobotController.getFPGATime() / 1e6;
     try {
       for (int i = 0; i < signals.size(); i++) {
         queues.get(i).offer(signals.get(i).getAsDouble());

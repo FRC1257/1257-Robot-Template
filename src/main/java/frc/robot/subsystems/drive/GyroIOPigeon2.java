@@ -30,6 +30,7 @@ public class GyroIOPigeon2 implements GyroIO {
   private final Pigeon2 pigeon = new Pigeon2(20);
   private final StatusSignal<Angle> yaw = pigeon.getYaw();
   private final Queue<Double> yawPositionQueue;
+  private final Queue<Double> yawTimestampQueue;
   private final StatusSignal<AngularVelocity> yawVelocity = pigeon.getAngularVelocityZWorld();
 
   public GyroIOPigeon2(boolean phoenixDrive) {
@@ -39,9 +40,11 @@ public class GyroIOPigeon2 implements GyroIO {
     yawVelocity.setUpdateFrequency(100.0);
     pigeon.optimizeBusUtilization();
     if (phoenixDrive) {
+      yawTimestampQueue = PhoenixOdometryThread.getInstance().makeTimestampQueue();
       yawPositionQueue =
           PhoenixOdometryThread.getInstance().registerSignal(pigeon, pigeon.getYaw());
     } else {
+      yawTimestampQueue = SparkMaxOdometryThread.getInstance().makeTimestampQueue();
       yawPositionQueue =
           SparkMaxOdometryThread.getInstance()
               .registerSignal(() -> pigeon.getYaw().getValueAsDouble());
@@ -52,12 +55,22 @@ public class GyroIOPigeon2 implements GyroIO {
   public void updateInputs(GyroIOInputs inputs) {
     inputs.connected = BaseStatusSignal.refreshAll(yaw, yawVelocity).equals(StatusCode.OK);
     inputs.yawPosition = Rotation2d.fromDegrees(yaw.getValueAsDouble());
+    inputs.rollPosition = Rotation2d.fromDegrees(pigeon.getRoll().getValueAsDouble());
+    inputs.pitchPosition = Rotation2d.fromDegrees(pigeon.getPitch().getValueAsDouble());
     inputs.yawVelocityRadPerSec = Units.degreesToRadians(yawVelocity.getValueAsDouble());
 
+    inputs.odometryYawTimestamps =
+        yawTimestampQueue.stream().mapToDouble((Double value) -> value).toArray();
     inputs.odometryYawPositions =
         yawPositionQueue.stream()
             .map((Double value) -> Rotation2d.fromDegrees(value))
             .toArray(Rotation2d[]::new);
+    yawTimestampQueue.clear();
     yawPositionQueue.clear();
+  }
+
+  @Override
+  public double getYawAngle() {
+    return yaw.getValueAsDouble();
   }
 }
