@@ -61,33 +61,33 @@ public class DriveCommands {
             DoubleSupplier omegaSupplier) {
         return Commands.run(
                 () -> {
-                    // Apply deadband
-                    double linearMagnitude = MathUtil.applyDeadband(
-                            Math.hypot(xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode),
-                            DEADBAND);
-                    Rotation2d linearDirection = new Rotation2d(xSupplier.getAsDouble() * slowMode,
-                            ySupplier.getAsDouble() * slowMode);
-                    double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
+                        // Apply deadband
+                        double linearMagnitude = MathUtil.applyDeadband(
+                                Math.hypot(xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode),
+                                DEADBAND);
+                        Rotation2d linearDirection = new Rotation2d(xSupplier.getAsDouble() * slowMode,
+                                ySupplier.getAsDouble() * slowMode);
+                        double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
 
-                    // Square values
-                    linearMagnitude = linearMagnitude * linearMagnitude;
-                    omega = Math.copySign(omega * omega, omega);
+                        // Square values
+                        linearMagnitude = linearMagnitude * linearMagnitude;
+                        omega = Math.copySign(omega * omega, omega);
 
-                    // Calcaulate new linear velocity
-                    Translation2d linearVelocity = new Pose2d(new Translation2d(), linearDirection)
-                            .transformBy(new Transform2d(linearMagnitude, 0.0, new Rotation2d()))
-                            .getTranslation();
+                        // Calcaulate new linear velocity
+                        Translation2d linearVelocity = new Pose2d(new Translation2d(), linearDirection)
+                                .transformBy(new Transform2d(linearMagnitude, 0.0, new Rotation2d()))
+                                .getTranslation();
 
-                    // Convert to field relative speeds & send command
-                    boolean isFlipped = getIsFlipped();
-                    drive.runVelocity(
-                            ChassisSpeeds.fromFieldRelativeSpeeds(
-                                    linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
-                                    linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                                    omega * drive.getMaxAngularSpeedRadPerSec(),
-                                    isFlipped
-                                            ? drive.getRotation().plus(new Rotation2d(Math.PI))
-                                            : drive.getRotation()
+                        // Convert to field relative speeds & send command
+                        boolean isFlipped = getIsFlipped();
+                        drive.runVelocity(
+                                ChassisSpeeds.fromFieldRelativeSpeeds(
+                                        linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
+                                        linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
+                                        omega * drive.getMaxAngularSpeedRadPerSec(),
+                                        isFlipped
+                                                ? drive.getRotation().plus(new Rotation2d(Math.PI))
+                                                : drive.getRotation()
                                 ));
                 },
                 drive);
@@ -110,7 +110,7 @@ public class DriveCommands {
                             DEADBAND);
                     Rotation2d linearDirection = new Rotation2d(xSupplier.getAsDouble() * slowMode,
                             ySupplier.getAsDouble() * slowMode);
-                    double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble(), DEADBAND);
+                    double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
 
                     // Square values
                     linearMagnitude = linearMagnitude * linearMagnitude;

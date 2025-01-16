@@ -8,6 +8,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public final class DriveConstants {
+
+    
   // Driving Parameters - Note that these are not the maximum capable speeds of
   // the robot, rather the allowed maximum speeds
   public static final double periodicTime = 0.02;
@@ -32,8 +34,8 @@ public final class DriveConstants {
 
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
-  public static final double kFrontLeftChassisAngularOffset = Math.PI;
-  public static final double kFrontRightChassisAngularOffset = 0;
+  public static final double kFrontLeftChassisAngularOffset = 0;
+  public static final double kFrontRightChassisAngularOffset = Math.PI;
   public static final double kBackLeftChassisAngularOffset = Math.PI;
   public static final double kBackRightChassisAngularOffset = 0;
 

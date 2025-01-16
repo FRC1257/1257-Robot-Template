@@ -24,6 +24,10 @@ import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.util.misc.Elastic;
+import frc.robot.util.misc.Elastic.Notification;
+import frc.robot.util.misc.Elastic.Notification.NotificationLevel;
+
 import static frc.robot.util.drive.DriveControls.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -128,9 +132,13 @@ public class RobotContainer {
             DRIVE_FORWARD,
             DRIVE_STRAFE,
             DRIVE_ROTATE));
-    DRIVE_STOP.onTrue(Commands.runOnce(drive::stopWithX, drive));
-    
+       
     DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
+
+    DRIVE_STOP.onTrue(new InstantCommand(() -> {
+      drive.stopWithX();
+      drive.resetYaw();
+    }, drive));
   
   }
 

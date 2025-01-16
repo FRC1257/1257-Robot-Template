@@ -14,16 +14,7 @@
 package frc.robot.subsystems.drive;
 
 import static edu.wpi.first.units.Units.Volts;
-import static frc.robot.subsystems.drive.DriveConstants.kMaxSpeedMetersPerSecond;
-import static frc.robot.subsystems.drive.DriveConstants.kPathConstraints;
-import static frc.robot.subsystems.drive.DriveConstants.kTrackWidthX;
-import static frc.robot.subsystems.drive.DriveConstants.kTrackWidthY;
-import static frc.robot.subsystems.drive.DriveConstants.kTranslationD;
-import static frc.robot.subsystems.drive.DriveConstants.kTranslationI;
-import static frc.robot.subsystems.drive.DriveConstants.kTranslationP;
-import static frc.robot.subsystems.drive.DriveConstants.kTurnAngleD;
-import static frc.robot.subsystems.drive.DriveConstants.kTurnAngleI;
-import static frc.robot.subsystems.drive.DriveConstants.kTurnAngleP;
+import static frc.robot.subsystems.drive.DriveConstants.*;
 
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -355,7 +346,7 @@ public class Drive extends SubsystemBase {
     return getPose().getRotation();
   } */
   public Rotation2d getRotation() {
-    return new Rotation2d(gyroIO.getYawAngle());
+    return Rotation2d.fromDegrees(gyroIO.getYawAngle());
     //return getPose().getRotation();
   }
 

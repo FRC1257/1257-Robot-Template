@@ -132,7 +132,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     // Apply position and velocity conversion factors for the turning encoder. We
     // want these in radians and radians per second to use with WPILib's swerve
     // APIs.
-    turnConfig.encoder
+    turnConfig.absoluteEncoder
       .positionConversionFactor(kTurningEncoderPositionFactor)
       .velocityConversionFactor(kTurningEncoderVelocityFactor)
       .inverted(ModuleConstants.kTurningEncoderInverted);
