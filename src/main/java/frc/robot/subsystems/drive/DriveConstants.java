@@ -1,7 +1,6 @@
 package frc.robot.subsystems.drive;
 
 import com.pathplanner.lib.path.PathConstraints;
-
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -9,7 +8,6 @@ import edu.wpi.first.math.util.Units;
 
 public final class DriveConstants {
 
-    
   // Driving Parameters - Note that these are not the maximum capable speeds of
   // the robot, rather the allowed maximum speeds
   public static final double periodicTime = 0.02;
@@ -26,11 +24,12 @@ public final class DriveConstants {
   // Distance between centers of right and left wheels on robot
   public static final double kWheelBase = Units.inchesToMeters(26.5);
   // Distance between front and back wheels on robot
-  public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-      new Translation2d(kWheelBase / 2, kTrackWidthX / 2),
-      new Translation2d(kWheelBase / 2, -kTrackWidthX / 2),
-      new Translation2d(-kWheelBase / 2, kTrackWidthX / 2),
-      new Translation2d(-kWheelBase / 2, -kTrackWidthX / 2));
+  public static final SwerveDriveKinematics kDriveKinematics =
+      new SwerveDriveKinematics(
+          new Translation2d(kWheelBase / 2, kTrackWidthX / 2),
+          new Translation2d(kWheelBase / 2, -kTrackWidthX / 2),
+          new Translation2d(-kWheelBase / 2, kTrackWidthX / 2),
+          new Translation2d(-kWheelBase / 2, -kTrackWidthX / 2));
 
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
@@ -46,7 +45,7 @@ public final class DriveConstants {
   public static final int kFrontRightDrivingCanId = 1;
   public static final int kRearRightDrivingCanId = 5;
 
-  //drive motors are timing out for some reason in the logs
+  // drive motors are timing out for some reason in the logs
 
   public static final int kFrontLeftTurningCanId = 4;
   public static final int kRearLeftTurningCanId = 8;
@@ -64,12 +63,14 @@ public final class DriveConstants {
   public static final double kPThetaController = 1;
 
   // Constraint for the motion profiled robot angle controller
-  public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
-      kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+      new TrapezoidProfile.Constraints(
+          kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
-  public static final PathConstraints kPathConstraints = new PathConstraints(
-      kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared,
-      kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  public static final PathConstraints kPathConstraints =
+      new PathConstraints(
+          kMaxSpeedMetersPerSecond, kMaxAccelerationMetersPerSecondSquared,
+          kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
   public static final double kSlowModeConstant = 0.5;
   public static final double kTurnAngleP = 0.9;
@@ -81,5 +82,4 @@ public final class DriveConstants {
   public static final double kTranslationP = 3.50;
   public static final double kTranslationI = 0.0;
   public static final double kTranslationD = 0.0;
-  
 }
